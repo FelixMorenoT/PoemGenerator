@@ -20,9 +20,8 @@ class RuleController:
 
     def apply_rule(self, rule_id):
         rule = self.rules_dictionary.get(rule_id)
-        print(rule.to_string())
+        #print(rule.to_string())
         if rule.rule_id == "LINE":
-            print("ENTRE A LINE")
             for reference in rule.rule_references:
                 if "<" and ">" in reference:
                     rule2 = self.rules_dictionary.get(reference[1:-1])

@@ -2,8 +2,10 @@ class FileReader:
     @classmethod
     def read_grammar_file(cls, file_path):
         lines = [line.rstrip("\n") for line in open(file_path)]
+        rules = []
         for line in lines:
-            print(cls.parse_grammar(line))
+            rules.append(cls.parse_grammar(line))
+        return rules
 
     @classmethod
     def parse_grammar(cls, line):

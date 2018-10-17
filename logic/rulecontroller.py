@@ -20,25 +20,22 @@ class RuleController:
 
     def apply_rule(self, rule_id):
         rule = self.rules_dictionary.get(rule_id)
-        print(rule)
         print(rule.to_string())
-        if rule.rule_id == "POEM" or rule.rule_id == "LINE":
+        if rule.rule_id == "LINE":
+            print("ENTRE A LINE")
             for reference in rule.rule_references:
                 if "<" and ">" in reference:
-                    print(reference)
                     rule2 = self.rules_dictionary.get(reference[1:-1])
-                    print(rule2)
-                    self.apply_rule(rule2)
-                    if rule.rule_keyword != "":
-                        self.poem = self.poem + "\n"
-                        continue
+                    return rule2
         else:
-            self.poem = self.poem + rule.get_definition()
+            self.poem = self.poem + " " + rule.get_definition()
             reference = rule.get_reference()
             if reference != "$END":
                 if "<" and ">" in reference:
                     rule3 = self.rules_dictionary.get(reference[1:-1])
-                    self.apply_rule(rule3.rule_id)
+                    return rule3
+            else:
+                return reference
 
 
 class Rule:
@@ -53,11 +50,11 @@ class Rule:
 
     def get_definition(self):
         if self.rule_definition != "":
-            return self.rule_definition[random.randint(0, len(self.rule_definition))]
+            return self.rule_definition[random.randint(0, len(self.rule_definition)-1)]
 
     def get_reference(self):
         if self.rule_references != "":
-            return self.rule_references[random.randint(0, len(self.rule_references))]
+            return self.rule_references[random.randint(0, len(self.rule_references)-1)]
 
     def to_string(self):
         return "rule_id: " + self.rule_id + "\ndefinitions: " + str(self.rule_definition) \

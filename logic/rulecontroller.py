@@ -20,7 +20,6 @@ class RuleController:
 
     def apply_rule(self, rule_id):
         rule = self.rules_dictionary.get(rule_id)
-        #print(rule.to_string())
         if rule.rule_id == "LINE":
             for reference in rule.rule_references:
                 if reference.startswith("<") and reference.endswith(">"):

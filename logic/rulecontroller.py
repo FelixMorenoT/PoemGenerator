@@ -23,14 +23,14 @@ class RuleController:
         #print(rule.to_string())
         if rule.rule_id == "LINE":
             for reference in rule.rule_references:
-                if "<" and ">" in reference:
+                if reference.startswith("<") and reference.endswith(">"):
                     rule2 = self.rules_dictionary.get(reference[1:-1])
                     return rule2
         else:
-            self.poem = self.poem + " " + rule.get_definition()
+            self.poem = self.poem + rule.get_definition() + " "
             reference = rule.get_reference()
             if reference != "$END":
-                if "<" and ">" in reference:
+                if reference.startswith("<") and reference.endswith(">"):
                     rule3 = self.rules_dictionary.get(reference[1:-1])
                     return rule3
             else:

@@ -4,7 +4,9 @@ class FileReader:
         lines = [line.rstrip("\n") for line in open(file_path)]
         rules = []
         for line in lines:
-            rules.append(cls.parse_grammar(line))
+            rule = cls.parse_grammar(line)
+            if rule is not None:
+                rules.append(rule)
         return rules
 
     @classmethod
@@ -14,8 +16,9 @@ class FileReader:
             if len(rule_split) == 2:
                 if rule_split[0] != "POEM":
                     definitions_references = rule_split[1].strip().split(" ")
-                    rule = [rule_split[0], definitions_references[0], definitions_references[1]]
-                    return rule
+                    if len(definitions_references) == 2:
+                        rule = [rule_split[0], definitions_references[0], definitions_references[1]]
+                        return rule
                 else:
                     rule = [rule_split[0], rule_split[1].strip()]
                     return rule
